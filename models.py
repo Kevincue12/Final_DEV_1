@@ -7,9 +7,6 @@ from database import Base
 from datetime import date
 import enum
 
-
-# ==== ENUMS ====
-
 class EstadoJugador(str, enum.Enum):
     activo = "Activo"
     lesionado = "Lesionado"

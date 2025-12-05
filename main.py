@@ -9,17 +9,12 @@ import crud
 import schemas
 from models import PieDominante, PosicionJugador, EstadoJugador, ResultadoPartido
 
-# Crear tablas en la BD (solo si no existen)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Sigomota FC - Gestión de jugadores y partidos")
 
 templates = Jinja2Templates(directory="templates")
 
-
-# ===================================================
-#                  RUTAS HTML
-# ===================================================
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
@@ -121,11 +116,6 @@ def crear_partido_html(
     )
     crud.crear_partido(db, partido_in)
     return RedirectResponse(url="/partidos_page", status_code=303)
-
-
-# ===================================================
-#                 RUTAS API JSON
-# ===================================================
 
 @app.post("/api/jugadores", response_model=schemas.Jugador)
 def crear_jugador_api(jugador: schemas.JugadorCreate, db: Session = Depends(get_db)):
