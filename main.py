@@ -39,3 +39,12 @@ def listar_jugadores_api(db: Session = Depends(get_db)):
 def obtener_jugador_api(jugador_id: int, db: Session = Depends(get_db)):
     jugador = crud.obtener_jugador(db, jugador_id)
     return jugador
+
+@app.post("/api/partidos", response_model=schemas.Partido)
+def crear_partido_api(partido: schemas.PartidoCreate, db: Session = Depends(get_db)):
+    return crud.crear_partido(db, partido)
+
+
+@app.get("/api/partidos", response_model=list[schemas.Partido])
+def listar_partidos_api(db: Session = Depends(get_db)):
+    return crud.listar_partidos(db)
