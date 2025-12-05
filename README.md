@@ -147,3 +147,12 @@ Luego abre la documentación interactiva:
 * Relación jugador ↔ partido
 
 ---
+
+## Autores
+* Kevin Cuevas - 67001396
+* Nicole Nieto - 67001296
+Proyecto desarrollado como parte de un módulo académico de desarrollo de software.
+
+
+---
+LINCK DE RENDER
