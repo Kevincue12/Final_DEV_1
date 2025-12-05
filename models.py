@@ -7,6 +7,7 @@ from database import Base
 from datetime import date
 import enum
 
+
 class EstadoJugador(str, enum.Enum):
     activo = "Activo"
     lesionado = "Lesionado"
@@ -35,9 +36,6 @@ class ResultadoPartido(str, enum.Enum):
     empate = "empate"
     derrota = "derrota"
 
-
-# ==== MODELOS ====
-
 class Jugador(Base):
     __tablename__ = "jugadores"
 
@@ -47,7 +45,6 @@ class Jugador(Base):
     nacionalidad = Column(String, nullable=False)
     fecha_nacimiento = Column(Date, nullable=False)
 
-    # Datos físicos / deportivos
     altura_cm = Column(Float, nullable=False)
     peso_kg = Column(Float, nullable=False)
     pie_dominante = Column(Enum(PieDominante), nullable=False)
@@ -58,7 +55,6 @@ class Jugador(Base):
     posicion = Column(Enum(PosicionJugador), nullable=False)
     estado = Column(Enum(EstadoJugador), default=EstadoJugador.activo)
 
-    # Relación con estadísticas por partido
     estadisticas = relationship("EstadisticaJugador", back_populates="jugador")
 
     @property
@@ -94,4 +90,11 @@ class EstadisticaJugador(Base):
     jugador_id = Column(Integer, ForeignKey("jugadores.id"))
     partido_id = Column(Integer, ForeignKey("partidos.id"))
 
-    minutos_jugados = Column(Integer, default=0_
+    minutos_jugados = Column(Integer, default=0)
+    goles_marcados = Column(Integer, default=0)
+    asistencias = Column(Integer, default=0)
+    tarjetas_amarillas = Column(Integer, default=0)
+    tarjetas_rojas = Column(Integer, default=0)
+
+    jugador = relationship("Jugador", back_populates="estadisticas")
+    partido = relationship("Partido", back_populates="estadisticas")
